@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # INTERNAL APPS
     'echo_app',
+    # EXTERNAL APPS
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +60,10 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'chat_echo.wsgi.application'
+# WSGI_APPLICATION = 'chat_echo.wsgi.application'
+
+# Channels
+ASGI_APPLICATION = 'chat_echo.asgi.application'
 
 
 # Database
