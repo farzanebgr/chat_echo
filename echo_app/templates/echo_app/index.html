@@ -1,41 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Echo Chat</title>
+    <meta charset="utf-8"/>
+    <title>Chat Rooms</title>
 </head>
 <body>
-    <textarea id="echo-log" cols="100" rows="20"></textarea><br>
-    <input id="text-input" type="text" size="100"/><br>
-    <input id="text-submit" type="button" value="Enter"/>
+    What chat room would you like to enter?<br>
+    <input id="room-name-input" type="text" size="100"><br>
+    <input id="room-name-submit" type="button" value="Enter">
 
     <script>
-        var socket = new WebSocket(
-            'ws://' + window.location.host +
-            '/ws/');
-        socket.onmessage = function (e){
-            var message = e.data;
-            document.querySelector('#echo-log').value += (message + '\n');
-        };
-
-        socket.onclose = function (e){
-            console.error('socket closed unexpectedly');
-        };
-
-        document.querySelector('#text-input').focus();
-        document.querySelector('#text-input').onkeyup = function (e){
-            if(e.keyCode === 13){ //enter, return
-                document.querySelector('#text-submit').click();
+        document.querySelector('#room-name-input').focus();
+        document.querySelector('#room-name-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#room-name-submit').click();
             }
         };
 
-        document.querySelector('#text-submit').onclick = function (e){
-            var messageInputDom = document.querySelector('#text-input');
-            var message = messageInputDom.value;
-            socket.send(message);
-
-            messageInputDom.value = '';
-        }
+        document.querySelector('#room-name-submit').onclick = function(e) {
+            var roomName = document.querySelector('#room-name-input').value;
+            window.location.pathname = '/chat/' + roomName + '/';
+        };
     </script>
 </body>
 </html>
